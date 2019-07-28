@@ -3,8 +3,10 @@
     <h1>Задачи</h1>
     <textarea v-model="newTask"></textarea>
     <button @click="addTask">Добавить задачу</button>
-    <div v-if="tasksList.length">
-      <task v-for="(task, index) in tasksList" :key="'task-' + index" :taskId="index" :title="task.taskName"></task>
+    <div class="pagination" v-if="computeTasksRoutes > 1">
+      <div class="pagination-item" v-for="(taskRoute, index)  in computeTasksRoutes" :key="'taskRoute-' + index">
+        <router-link :to="{ name: 'Tasks', params: { taskId: taskRoute, key: taskRoute - 1 }}">{{ taskRoute }}</router-link>
+      </div>
     </div>
     <router-view/>
   </div>
@@ -16,7 +18,8 @@ export default {
   name: 'App',
   data () {
     return {
-      newTask: ''
+      newTask: '',
+      maxTaskCount: 10
     }
   },
   methods: {
@@ -27,11 +30,12 @@ export default {
         })
         this.newTask = ''
       }
+      this.$router.push({ name: 'default' })
     }
   },
   computed: {
-    tasksList () {
-      return this.$store.state.tasksList
+    computeTasksRoutes () {
+      return Math.ceil((this.$store.state.tasksList.length / this.maxTaskCount))
     }
   }
 }

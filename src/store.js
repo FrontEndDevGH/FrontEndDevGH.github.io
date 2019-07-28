@@ -7,10 +7,88 @@ export default new Vuex.Store({
   state: {
     tasksList: [
       {
-        taskName: 'Задача1'
+        taskName: 'Задача1',
+        done: false
       },
       {
-        taskName: 'Задача2'
+        taskName: 'Задача2',
+        done: false
+      },
+      {
+        taskName: 'Задача3',
+        done: false
+      },
+      {
+        taskName: 'Задача4',
+        done: false
+      },
+      {
+        taskName: 'Задача5',
+        done: false
+      },
+      {
+        taskName: 'Задача6',
+        done: false
+      },
+      {
+        taskName: 'Задача7',
+        done: false
+      },
+      {
+        taskName: 'Задача8',
+        done: false
+      },
+      {
+        taskName: 'Задача9',
+        done: false
+      },
+      {
+        taskName: 'Задача10',
+        done: false
+      },
+      {
+        taskName: 'Задача11',
+        done: false
+      },
+      {
+        taskName: 'Задача12',
+        done: false
+      },
+      {
+        taskName: 'Задача13',
+        done: false
+      },
+      {
+        taskName: 'Задача14',
+        done: false
+      },
+      {
+        taskName: 'Задача15',
+        done: false
+      },
+      {
+        taskName: 'Задача16',
+        done: false
+      },
+      {
+        taskName: 'Задача17',
+        done: false
+      },
+      {
+        taskName: 'Задача18',
+        done: false
+      },
+      {
+        taskName: 'Задача19',
+        done: false
+      },
+      {
+        taskName: 'Задача20',
+        done: false
+      },
+      {
+        taskName: 'Задача21',
+        done: false
       }
     ]
   },
