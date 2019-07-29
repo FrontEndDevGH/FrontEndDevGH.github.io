@@ -1,6 +1,6 @@
 <template>
   <div class="main-block">
-    <h1>Задачи</h1>
+    <h1>{{ locations }}</h1>
     <textarea v-model="newTask"></textarea>
     <button @click="addTask">Добавить задачу</button>
     <div class="pagination" v-if="computeTasksRoutes > 1">
@@ -13,15 +13,21 @@
 </template>
 
 <script>
-
+import { db } from './main'
 export default {
   name: 'App',
   data () {
     return {
       newTask: '',
-      maxTaskCount: 10
+      maxTaskCount: 10,
+      locations: []
     }
   },
+  firestore () {
+   return {
+     locations: db.collection('Tasks')
+   }
+ },
   methods: {
     addTask () {
       if (this.newTask) {
@@ -37,6 +43,10 @@ export default {
     computeTasksRoutes () {
       return Math.ceil((this.$store.state.tasksList.length / this.maxTaskCount))
     }
+  },
+  mounted () {
+    debugger
+    this.$store.dispatch('userJoin')
   }
 }
 </script>
