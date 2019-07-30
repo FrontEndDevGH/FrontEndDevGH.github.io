@@ -104,8 +104,7 @@ export default new Vuex.Store({
   },
   actions: {
     userJoin({ commit }) {
-      debugger
-      var ref = firebase.database().ref('https://console.firebase.google.com/project/todo-list-3ae26')
+      var ref = firebase.database().refFromURL('https://todo-list-3ae26.firebaseio.com')
     }
   }
 })
