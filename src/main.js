@@ -7,8 +7,9 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 Vue.use(firestorePlugin)
 firebase.initializeApp({
+ apiKey: 'AIzaSyCmdBzwgbCpT694ue3tOB77dI2X1_Hotsg',
  projectId: 'todo-list-3ae26', 
- databaseURL: 'https://console.firebase.google.com/project/todo-list-3ae26'
+ databaseURL: 'https://todo-list-3ae26.firebaseio.com'
 })
 export const db = firebase.firestore()
 
