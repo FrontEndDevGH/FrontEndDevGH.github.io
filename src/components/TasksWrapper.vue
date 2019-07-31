@@ -30,20 +30,19 @@ export default {
   methods: {
     addTask () {
       if (this.newTask) {
-        this.$store.dispatch('myModule/set', {taskName: this.newTask, done: false, index: this.dataLength})
+        this.$store.dispatch('myModule/set', { taskName: this.newTask, done: false })
         this.newTask = ''
       }
       this.$router.push({ name: 'defaultChild' })
     }
   },
   computed: {
-    dataLength () {
-        return Object.values(this.$store.state.myModule.data).length
-    },
     computeTasksRoutes () {
-        if (this.dataLength) {
-            return Math.ceil((this.dataLength / 10))
-        }
+      let dataLength = Object.values(this.$store.state.myModule.data).length
+      if (dataLength) {
+        return Math.ceil((dataLength / 10))
+      }
+      return null
     }
   }
 }

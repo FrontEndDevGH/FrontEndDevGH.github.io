@@ -8,7 +8,7 @@
 export default {
   name: 'App',
   created () {
-      this.$store.dispatch('myModule/openDBChannel').catch(console.error)
+    this.$store.dispatch('myModule/openDBChannel').catch(console.error)
   }
 }
 </script>

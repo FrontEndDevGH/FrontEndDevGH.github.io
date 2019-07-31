@@ -21,7 +21,7 @@ export default {
       this.$router.go(-1)
     },
     saveTask () {
-      this.$store.dispatch('myModule/set', {id: this.getTaskData.id, taskName: this.editTask})
+      this.$store.dispatch('myModule/set', { id: this.getTaskData.id, taskName: this.editTask })
       this.$router.go(-1)
     }
   },

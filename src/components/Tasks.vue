@@ -1,21 +1,15 @@
 <template>
   <div v-if="tasksList">
     <div v-for="(task, index) in tasksList" :key="'task-' + index" class="task" :class="{'task__done': task.done}">
-      <div
-        class="task__title"
-         @click="markTask(task)"
-      >{{ task.taskName }}</div>
+      <div class="task__title" @click="markTask(task)">{{ task.taskName }}</div>
       <router-link class="task__edit" :to="{ name: 'Edit', params: {data: task} }">
         <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
-        x="0px"
-        y="0px"
         width="20px"
         height="28px"
         viewBox="0 0 528.899 528.899"
         style="enable-background:new 0 0 528.899 528.899;"
-        xml:space="preserve"
       >
         <g>
           <path
@@ -27,9 +21,6 @@
         </g>
       </svg>
       </router-link>
-
-      
-
       <a @click="deleteTask(task)" href="#" class="close" />
     </div>
   </div>
@@ -37,32 +28,32 @@
 
 <script>
 export default {
-  name: "Tasks",
+  name: 'Tasks',
   data () {
     return {
       data: []
     }
   },
   methods: {
-    deleteTask(task) {
+    deleteTask (task) {
       this.$store.dispatch('myModule/delete', task.id)
     },
-    markTask(task) {
-      this.$store.dispatch('myModule/set', {id: task.id, done: !task.done})
+    markTask (task) {
+      this.$store.dispatch('myModule/set', { id: task.id, done: !task.done })
     }
   },
   computed: {
-    tasksList() {
-      debugger
+    tasksList () {
       let tasksList = Object.values(this.$store.state.myModule.data)
       if (tasksList.length) {
-        let startIndex = (this.$route.params.key || 0) * 10;
-        let result = tasksList.slice(startIndex, startIndex + 10);
-        return result;
+        tasksList.sort((a, b) => a.created_at.seconds - b.created_at.seconds).reverse()
+        let startIndex = (this.$route.params.key || 0) * 10
+        return tasksList.slice(startIndex, startIndex + 10)
       }
+      return []
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
