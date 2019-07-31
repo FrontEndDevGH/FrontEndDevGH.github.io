@@ -1,10 +1,10 @@
 <template>
-  <div v-if="tasksList.length">
+  <div v-if="tasksList">
     <div v-for="(task, index) in tasksList" :key="'task-' + index" class="task" :class="{'task__done': task.done}">
       <div
         class="task__title"
-         @click="markTask(task.originArrId)"
-      >{{ task.originArrId + 1 + '.' + ' ' + task.taskName }}</div>
+         @click="markTask(task)"
+      >{{ task.taskName }}</div>
       <router-link class="task__edit" :to="{ name: 'Edit', params: {data: task} }">
         <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +30,7 @@
 
       
 
-      <a @click="deleteTask(task.originArrId)" href="#" class="close" />
+      <a @click="deleteTask(task)" href="#" class="close" />
     </div>
   </div>
 </template>
@@ -38,27 +38,28 @@
 <script>
 export default {
   name: "Tasks",
+  data () {
+    return {
+      data: []
+    }
+  },
   methods: {
-    deleteTask(index) {
-      this.$store.commit("deleteTask", index);
+    deleteTask(task) {
+      this.$store.dispatch('myModule/delete', task.id)
     },
-    markTask(index) {
-      debugger
-      let selectedTask = this.$store.state.tasksList[index];
-      selectedTask.done = !selectedTask.done;
+    markTask(task) {
+      this.$store.dispatch('myModule/set', {id: task.id, done: !task.done})
     }
   },
   computed: {
     tasksList() {
-      let tasksList = this.$store.state.tasksList
-        .map((el, i) => {
-          el.originArrId = i;
-          return el;
-        })
-        .reverse();
-      let startIndex = (this.$route.params.key || 0) * 10;
-      let result = tasksList.slice(startIndex, startIndex + 10);
-      return result;
+      debugger
+      let tasksList = Object.values(this.$store.state.myModule.data)
+      if (tasksList.length) {
+        let startIndex = (this.$route.params.key || 0) * 10;
+        let result = tasksList.slice(startIndex, startIndex + 10);
+        return result;
+      }
     }
   }
 };

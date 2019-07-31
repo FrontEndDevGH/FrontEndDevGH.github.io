@@ -6,7 +6,10 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  created () {
+      this.$store.dispatch('myModule/openDBChannel').catch(console.error)
+  }
 }
 </script>
 
@@ -15,6 +18,7 @@ export default {
   width: 90%;
   max-width: 500px;
   height: auto;
+  min-height: 250px;
   background: #DCDCDC;
   margin: 100px auto;
   border-radius: 5px;

@@ -14,44 +14,37 @@
         >{{ taskRoute }}</router-link>
       </div>
     </div>
+    <div v-if="!computeTasksRoutes" class="lds-dual-ring"></div>
     <router-view/>
   </div>
 </template>
 
 <script>
-import { db } from '../main'
 export default {
   name: 'TasksWrapper',
   data () {
     return {
-      newTask: '',
-      maxTaskCount: 10,
-      locations: []
+      newTask: ''
     }
   },
-  firestore () {
-   return {
-     locations: db.collection('Tasks')
-   }
- },
   methods: {
     addTask () {
       if (this.newTask) {
-        this.$store.commit('setTask', {
-          taskName: this.newTask
-        })
+        this.$store.dispatch('myModule/set', {taskName: this.newTask, done: false, index: this.dataLength})
         this.newTask = ''
       }
       this.$router.push({ name: 'defaultChild' })
     }
   },
   computed: {
+    dataLength () {
+        return Object.values(this.$store.state.myModule.data).length
+    },
     computeTasksRoutes () {
-      return Math.ceil((this.$store.state.tasksList.length / this.maxTaskCount))
+        if (this.dataLength) {
+            return Math.ceil((this.dataLength / 10))
+        }
     }
-  },
-  mounted () {
-    this.$store.dispatch('userJoin')
   }
 }
 </script>
@@ -100,4 +93,34 @@ export default {
     }
   }
 }
+.lds-dual-ring {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  top: 292px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 </style>

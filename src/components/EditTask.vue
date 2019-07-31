@@ -21,10 +21,7 @@ export default {
       this.$router.go(-1)
     },
     saveTask () {
-      debugger
-      this.$store.state.tasksList.forEach(task => {
-        if (task.originArrId === this.getTaskData.originArrId) task.taskName = this.editTask
-      })
+      this.$store.dispatch('myModule/set', {id: this.getTaskData.id, taskName: this.editTask})
       this.$router.go(-1)
     }
   },
